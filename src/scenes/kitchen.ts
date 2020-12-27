@@ -4,35 +4,43 @@ import {
   PerspectiveCamera,
   AxesHelper,
   DirectionalLight,
+  MathUtils,
 } from "three";
 import IScene from "../core/i-scene";
-import item from "../items/cupboard";
+import { Wall } from "../items/wall";
 
 export class Kitchen implements IScene {
   // add lights
   addLights(scene) {
     const light = new DirectionalLight(0xffffff, 1.0);
 
-    light.position.set(100, 100, 100);
+    light.position.set(0, 0, 10);
 
     scene.add(light);
 
-    const light2 = new DirectionalLight(0xffffff, 1.0);
+    // const light2 = new DirectionalLight(0xffffff, 1.0);
 
-    light2.position.set(-100, 100, -100);
+    // light2.position.set(-100, 100, -100);
 
-    scene.add(light2);
+    // scene.add(light2);
   }
 
   // create the scene
   getScene(): Scene {
     const scene = new Scene();
-
+    this.addLights(scene);
     // add axis to the scene
     const axis = new AxesHelper(10);
     scene.add(axis);
 
-    scene.add(item);
+    const frontWall = new Wall();
+    scene.add(frontWall.getMesh());
+
+    // const leftWall = new Wall();
+    // const leftWallObject = leftWall.getMesh();
+    // leftWallObject.rotation.y = MathUtils.degToRad(30);
+    // leftWallObject.position.x = -1;
+    // scene.add(leftWallObject);
 
     return scene;
   }

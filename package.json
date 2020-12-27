@@ -20,6 +20,7 @@
   "homepage": "https://github.com/pinqy520/three-typescript-starter#readme",
   "devDependencies": {
     "awesome-typescript-loader": "latest",
+    "copy-webpack-plugin": "^7.0.0",
     "css-loader": "latest",
     "html-webpack-plugin": "latest",
     "progress-bar-webpack-plugin": "latest",

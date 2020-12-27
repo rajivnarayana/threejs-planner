@@ -3,6 +3,7 @@ const { resolve } = require('path');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -49,5 +50,12 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
     }),
+    new CopyWebpackPlugin({
+      patterns: [{
+
+        from: "src/images",
+        to: "images"
+      }]
+    })
   ],
 };

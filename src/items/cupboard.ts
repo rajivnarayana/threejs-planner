@@ -1,22 +1,36 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial } from "three";
-import { origin } from "./constants";
+import { BoxGeometry, BufferGeometry, EdgesGeometry, Line, LineBasicMaterial, LineSegments, Mesh, MeshBasicMaterial, MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial, Object3D, TextureLoader, Vector3 } from "three";
+// import { origin } from "./constants";
 import { ftToUnits } from "../conversions";
 
-//Draw a wall.
-const height = ftToUnits(9);
-const width = ftToUnits(10);
-const depth = ftToUnits(1);
+const loader = new TextureLoader();
+export default class Cupboard {
+    constructor(private height, private width, private depth = 1, private color) {
+    }
 
-const wall = new BoxGeometry(width, height, depth);
+    getItem() {
+        const cupboardObject = new Object3D();
+        const box = new BoxGeometry(this.width, this.height, this.depth);
+        const material = new MeshPhongMaterial({
+            // color: 'darkgray',
+            // color: 'green',
+            color: this.color,
+            // map: loader.load('/images/Apple_Green_1010006.jpg'),
+            // wireframe: true,
+        });
+        const boxMesh = new Mesh(box, material);
 
-const material = new MeshBasicMaterial({
-    color: 0xffffff,
-    wireframe: false,
-});
-  
-const mesh = new Mesh(wall, material);
-mesh.position.x = width / 2;
-mesh.position.y = height / 2;
-mesh.position.z = depth / 2;
+        cupboardObject.add(boxMesh);
 
-export default mesh;
+        //Border mesh
+        const edgesGeometry = new EdgesGeometry(box);
+        const edgeMaterial = new LineBasicMaterial({ color: 0x000000, linewidth: 4 });
+        const wireframe = new LineSegments(edgesGeometry, edgeMaterial);
+        wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
+
+        cupboardObject.add(wireframe);
+
+        return cupboardObject;
+    }
+}
+
+

@@ -19,12 +19,13 @@ function animate(): void {
   render();
 }
 
-// const scene = kitchenScene;
-const scene = battleShipScene;
+const defaultScene = kitchenScene;
+const scene = defaultScene.getScene()
+// const scene = battleShipScene;
 
 function render(): void {
-  renderer.render(scene.getScene(), scene.getCamera());
+  renderer.render(scene, defaultScene.getCamera());
 }
 
-// animate();
-render();
+animate();
+// render();
